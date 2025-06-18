@@ -193,6 +193,110 @@
             background: #176d13;
             border: 2px solid #ffe44d;
         }
+        /* Estilos específicos para Flappy Touch */
+        #flappy-container {
+            width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: url('fonde mesa.jpg') no-repeat center center, linear-gradient(180deg, #e8f5e9 0%, #178a2c 100%);
+            background-size: cover;
+            position: fixed; top: 0; left: 0;
+        }
+        #flappy-canvas {
+            background: transparent;
+            display: block;
+            margin: auto;
+            width: 92vw;
+            height: 70vh;
+            max-width: 370px;
+            max-height: 620px;
+            aspect-ratio: 9/16;
+            border-radius: 18px;
+            box-shadow: 0 0 32px 4px #178a2c88, 0 0 0 4px #178a2c;
+            border: none;
+            touch-action: none;
+        }
+        #flappy-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('Fondo texto.jpg') no-repeat center center;
+            background-size: cover;
+            color: #178a2c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        #flappy-overlay .arbol-img {
+            width: 38vw;
+            max-width: 180px;
+            min-width: 90px;
+            margin-top: 2.5rem;
+            margin-bottom: 1.2rem;
+            filter: drop-shadow(0 4px 16px #fff);
+        }
+        #flappy-overlay h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: #178a2c;
+            text-align: center;
+            text-shadow: 0 2px 12px #fff, 0 0 12px #178a2c, 2px 2px 0 #fff;
+            margin-top: 0;
+        }
+        #flappy-overlay .arbol-chan-titulo {
+            font-family: 'Montserrat', Arial, sans-serif;
+            color: #178a2c;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 0.7rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            text-shadow: 0 2px 12px #fff, 0 0 12px #178a2c, 2px 2px 0 #fff;
+        }
+        #flappy-overlay .arbol-chan-texto {
+            color: #fff;
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 1.05rem;
+            margin-top: 0.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 2px 8px #000;
+        }
+        #flappy-overlay button, #flappy-overlay .btn-continuar {
+            font-size: 1.3rem;
+            background: #178a2c;
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            padding: 0.7rem 2.5rem;
+            font-weight: bold;
+            font-family: 'Montserrat', Arial, sans-serif;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            cursor: pointer;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        #flappy-overlay button:active, #flappy-overlay .btn-continuar:active {
+            background: #176d13;
+            border: 2px solid #ffe44d;
+        }
+        #flappy-countdown {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 20;
+            pointer-events: none;
+        }
+        #flappy-countdown-num {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 0 2px 16px #178a2c,0 0 12px #fff;
+        }
+        #ost-text {
+            position:fixed;bottom:18px;left:0;width:100vw;text-align:center;z-index:20;
+            font-family:'Montserrat',Arial,sans-serif;font-size:1.05rem;color:#fff;text-shadow:0 2px 8px #000;
+        }
     </style>
 </head>
 <body>
@@ -242,33 +346,143 @@
                 arbolChanTexto.innerHTML = "Demuestra que eres un real Bro™: aguanta estas pesas sin derramar una sola gota de sudor el tiempo que sea necesario.”";
                 arbolChanDialogStep = 1;
             } else {
-                // Muestra el canvas y el cuadro azul, pero el juego inicia tras el contador
+                // Reemplaza el juego Pong por Flappy Touch con estética visual del Pong
                 document.body.innerHTML = `
                     <style>
-                        /* ... pong styles ya incluidos arriba ... */
+                        body {
+                            margin: 0;
+                            background: #e8f5e9;
+                            width: 100vw;
+                            min-height: 100vh;
+                            font-family: 'Montserrat', Arial, sans-serif;
+                        }
+                        #flappy-container {
+                            width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;
+                            background: url('fonde mesa.jpg') no-repeat center center, linear-gradient(180deg, #e8f5e9 0%, #178a2c 100%);
+                            background-size: cover;
+                            position: fixed; top: 0; left: 0;
+                        }
+                        #flappy-canvas {
+                            background: transparent;
+                            display: block;
+                            margin: auto;
+                            width: 92vw;
+                            height: 70vh;
+                            max-width: 370px;
+                            max-height: 620px;
+                            aspect-ratio: 9/16;
+                            border-radius: 18px;
+                            box-shadow: 0 0 32px 4px #178a2c88, 0 0 0 4px #178a2c;
+                            border: none;
+                            touch-action: none;
+                        }
+                        #flappy-overlay {
+                            position: absolute;
+                            top: 0; left: 0; width: 100vw; height: 100vh;
+                            background: url('Fondo texto.jpg') no-repeat center center;
+                            background-size: cover;
+                            color: #178a2c;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            z-index: 10;
+                            font-family: 'Montserrat', Arial, sans-serif;
+                        }
+                        #flappy-overlay .arbol-img {
+                            width: 38vw;
+                            max-width: 180px;
+                            min-width: 90px;
+                            margin-top: 2.5rem;
+                            margin-bottom: 1.2rem;
+                            filter: drop-shadow(0 4px 16px #fff);
+                        }
+                        #flappy-overlay h2 {
+                            font-size: 2.2rem;
+                            margin-bottom: 2rem;
+                            color: #178a2c;
+                            text-align: center;
+                            text-shadow: 0 2px 12px #fff, 0 0 12px #178a2c, 2px 2px 0 #fff;
+                            margin-top: 0;
+                        }
+                        #flappy-overlay .arbol-chan-titulo {
+                            font-family: 'Montserrat', Arial, sans-serif;
+                            color: #178a2c;
+                            font-size: 2rem;
+                            font-weight: bold;
+                            margin-top: 0.7rem;
+                            margin-bottom: 0.5rem;
+                            text-align: center;
+                            text-shadow: 0 2px 12px #fff, 0 0 12px #178a2c, 2px 2px 0 #fff;
+                        }
+                        #flappy-overlay .arbol-chan-texto {
+                            color: #fff;
+                            font-family: 'Roboto', Arial, sans-serif;
+                            font-size: 1.05rem;
+                            margin-top: 0.3rem;
+                            margin-bottom: 1rem;
+                            text-align: center;
+                            text-shadow: 0 2px 8px #000;
+                        }
+                        #flappy-overlay button, #flappy-overlay .btn-continuar {
+                            font-size: 1.3rem;
+                            background: #178a2c;
+                            color: #fff;
+                            border: 2px solid #fff;
+                            border-radius: 8px;
+                            padding: 0.7rem 2.5rem;
+                            font-weight: bold;
+                            font-family: 'Montserrat', Arial, sans-serif;
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+                            cursor: pointer;
+                            margin-top: 1.5rem;
+                            margin-bottom: 2rem;
+                        }
+                        #flappy-overlay button:active, #flappy-overlay .btn-continuar:active {
+                            background: #176d13;
+                            border: 2px solid #ffe44d;
+                        }
+                        #flappy-countdown {
+                            position: absolute;
+                            top: 0; left: 0; width: 100vw; height: 100vh;
+                            display: flex; align-items: center; justify-content: center;
+                            z-index: 20;
+                            pointer-events: none;
+                        }
+                        #flappy-countdown-num {
+                            font-family: 'Montserrat', Arial, sans-serif;
+                            font-size: 4rem;
+                            color: #fff;
+                            text-shadow: 0 2px 16px #178a2c,0 0 12px #fff;
+                        }
+                        #ost-text {
+                            position:fixed;bottom:18px;left:0;width:100vw;text-align:center;z-index:20;
+                            font-family:'Montserrat',Arial,sans-serif;font-size:1.05rem;color:#fff;text-shadow:0 2px 8px #000;
+                        }
                     </style>
-                    <div id="pong-container">
-                        <canvas id="pong-canvas"></canvas>
-                        <div id="pong-countdown"
-                            style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;z-index:50;pointer-events:none;">
-                            <span id="pong-countdown-num"
-                                style="font-family:'Montserrat',Arial,sans-serif;font-size:4rem;color:#fff;text-shadow:0 2px 16px #178a2c,0 0 12px #fff;">
-                                3
-                            </span>
+                    <div id="flappy-container">
+                        <canvas id="flappy-canvas"></canvas>
+                        <div id="flappy-countdown">
+                            <span id="flappy-countdown-num">3</span>
                         </div>
                     </div>
-                    <div id="ost-text" style="position:fixed;bottom:18px;left:0;width:100vw;text-align:center;z-index:20;font-family:'Montserrat',Arial,sans-serif;font-size:1.05rem;color:#fff;text-shadow:0 2px 8px #000;">
+                    <div id="ost-text">
                         Dr. Wily's Stage Theme 1 metal version - Megaman 2
                     </div>
                     <audio id="pong-audio" src="gymtime.mp3" loop></audio>
+                    <div id="flappy-overlay" style="display:none;"></div>
                 `;
+
+                // Flappy Touch game logic
                 setTimeout(() => {
-                    const canvas = document.getElementById('pong-canvas');
+                    const canvas = document.getElementById('flappy-canvas');
                     const ctx = canvas.getContext('2d');
-                    // --- Pong game logic (idéntico al flujo original) ---
-                    function getGameSize() {
-                        return { w: canvas.width, h: canvas.height };
-                    }
+                    const overlay = document.getElementById('flappy-overlay');
+                    const countdownDiv = document.getElementById('flappy-countdown');
+                    const countdownNum = document.getElementById('flappy-countdown-num');
+                    const audio = document.getElementById('pong-audio');
+
+                    // Responsive canvas
                     function resizeCanvas() {
                         const rect = canvas.getBoundingClientRect();
                         canvas.width = rect.width;
@@ -277,394 +491,284 @@
                     resizeCanvas();
                     window.addEventListener('resize', resizeCanvas);
 
+                    // Game variables
+                    let birdY, velocity, gameStarted, countdown, lastPhaseTime, animationStartTime, repetitions;
+                    let currentTargetIndex, currentOffset, time, gameTimer, gameTimerInterval;
+                    let inFinalMilliseconds, finalMilliseconds, activeBonuses, gameOver;
+                    const gravity = 0.25;
+                    function getGameSize() { return { w: canvas.width, h: canvas.height }; }
                     function rel(val, axis) {
                         const { w, h } = getGameSize();
                         return axis === 'w' ? val * w : val * h;
                     }
-                    function paddleW() { return rel(0.22, 'w'); }
-                    function paddleH() { return rel(0.025, 'h'); }
-                    function paddleMargin() { return rel(0.03, 'h'); }
-                    function ballSize() { return rel(0.035, 'w'); }
+                    const birdX = () => getGameSize().w / 2;
+                    const phaseOffsets = [rel(0.13, 'h'), rel(0.19, 'h'), rel(0.25, 'h'), rel(0.31, 'h')];
+                    const maxRepetitions = 5;
+                    let phaseAnimationActive = true;
+                    let topLineY = 0;
+                    let bottomLineY = 0;
 
-                    let aiTimer = 15.0;
-                    let aiFrozen = false;
-                    let aiFreezeTimer = 0;
-                    let aiTimerLastUpdate = Date.now();
-
-                    let player = { x: 0, y: 0, w: paddleW(), h: paddleH(), score: 0 };
-                    let ai = { x: 0, y: 0, w: paddleW(), h: paddleH(), score: 0 };
-                    let ball = { x: 0, y: 0, vx: 0, vy: 0, size: ballSize() };
-                    let running = false; // El juego inicia después del contador
-                    let touchX = null;
-
-                    function resetPositions(servingToPlayer = false) {
-                        const { w, h } = getGameSize();
-                        player.w = paddleW(); player.h = paddleH();
-                        ai.w = paddleW(); ai.h = paddleH();
-                        player.x = w/2 - player.w/2;
-                        player.y = h - paddleMargin() - player.h;
-                        ai.x = w/2 - ai.w/2;
-                        ai.y = paddleMargin();
-                        ball.size = ballSize();
-                        ball.x = w/2 - ball.size/2;
-                        ball.y = h/2 - ball.size/2;
-                        let angle = (Math.random() * 0.5 - 0.25);
-                        let baseSpeed = rel(0.018, 'h');
-                        if (servingToPlayer) {
-                            ball.vy = -baseSpeed;
-                            ball.vx = angle * baseSpeed * 2;
-                        } else {
-                            ball.vy = baseSpeed;
-                            ball.vx = angle * baseSpeed * 2;
-                        }
-                        let speed = Math.sqrt(ball.vx*ball.vx + ball.vy*ball.vy);
-                        if (speed !== 0) {
-                            ball.vx *= baseSpeed/speed;
-                            ball.vy *= baseSpeed/speed;
-                        }
-                        aiTimerLastUpdate = Date.now();
+                    function resetGame() {
+                        birdY = getGameSize().h / 2;
+                        velocity = 0;
+                        gameStarted = false;
+                        countdown = 3;
+                        lastPhaseTime = 0;
+                        animationStartTime = null;
+                        repetitions = 0;
+                        currentTargetIndex = 0;
+                        currentOffset = phaseOffsets[0];
+                        time = 0;
+                        gameTimer = 30;
+                        inFinalMilliseconds = false;
+                        finalMilliseconds = 900;
+                        activeBonuses = [];
+                        gameOver = false;
+                        phaseAnimationActive = true;
+                        overlay.style.display = 'none';
+                        clearInterval(gameTimerInterval);
+                        startCountdown();
+                        update();
                     }
 
-                    function drawTable() {
-                        const { w, h } = getGameSize();
+                    function updateTargetOffset() {
+                        const phaseDuration = 300;
+                        const nextTargetIndex = Math.min(Math.floor(time / phaseDuration), phaseOffsets.length - 1);
+                        if (nextTargetIndex !== currentTargetIndex) {
+                            currentTargetIndex = nextTargetIndex;
+                            lastPhaseTime = performance.now();
+                        }
+                    }
+
+                    function smoothOffset() {
+                        const target = phaseOffsets[currentTargetIndex];
+                        const progress = Math.min(time / 200, 1);
+                        const factor = 0.01 + progress * (0.05 - 0.01);
+                        currentOffset += (target - currentOffset) * factor;
+                        return currentOffset;
+                    }
+
+                    function drawBird() {
+                        // Usa la imagen "pesas1.png" en vez de dibujar las pesas con canvas
+                        const img = drawBird.pesasImg || (drawBird.pesasImg = new Image());
+                        if (!img.src) img.src = "pesas1.png";
+                        // Haz las pesas aún más grandes
+                        const w = rel(0.38, 'w');
+                        const h = rel(0.19, 'h');
                         ctx.save();
-                        ctx.fillStyle = "#2b4fa2";
-                        ctx.globalAlpha = 0.93;
-                        ctx.fillRect(rel(0.03, 'w'), rel(0.02, 'h'), w - rel(0.06, 'w'), h - rel(0.04, 'h'));
                         ctx.globalAlpha = 1;
-                        ctx.strokeStyle = "#fff";
-                        ctx.lineWidth = rel(0.012, 'w');
-                        ctx.strokeRect(rel(0.03, 'w'), rel(0.02, 'h'), w - rel(0.06, 'w'), h - rel(0.04, 'h'));
-                        ctx.beginPath();
-                        ctx.moveTo(rel(0.03, 'w'), h/2);
-                        ctx.lineTo(w - rel(0.03, 'w'), h/2);
-                        ctx.setLineDash([rel(0.04, 'w'), rel(0.025, 'w')]);
-                        ctx.lineWidth = rel(0.008, 'w');
-                        ctx.stroke();
-                        ctx.setLineDash([]);
-                        ctx.beginPath();
-                        ctx.strokeStyle = "#e0e0e0";
-                        ctx.lineWidth = rel(0.012, 'h');
-                        ctx.moveTo(rel(0.03, 'w'), h/2);
-                        ctx.lineTo(w - rel(0.03, 'w'), h/2);
-                        ctx.stroke();
+                        ctx.drawImage(img, birdX() - w / 2, birdY - h / 2, w, h);
                         ctx.restore();
                     }
 
-                    function drawScore() {
-                        const { w, h } = getGameSize();
-                        ctx.font = `bold ${rel(0.08, 'w')}px 'Montserrat', Arial, sans-serif`;
-                        ctx.textAlign = "center";
-                        ctx.fillStyle = "#ffe44d";
+                    function drawBoundaries() {
+                        const now = performance.now();
+                        const baseOffset = smoothOffset();
+                        let offsetAnim = 0;
+                        if (currentTargetIndex === phaseOffsets.length - 1) {
+                            if (phaseAnimationActive) {
+                                const elapsed = (now - lastPhaseTime) / 1000;
+                                offsetAnim = Math.sin(elapsed * 2 * Math.PI / 10) * rel(0.16, 'h');
+                                if (elapsed >= 10) {
+                                    animationStartTime = now;
+                                    phaseAnimationActive = false;
+                                }
+                            } else if (repetitions < maxRepetitions) {
+                                const elapsed = (now - animationStartTime) / 1000;
+                                const cycleDuration = 10;
+                                const t = (elapsed % cycleDuration) / cycleDuration;
+                                if (elapsed >= (repetitions + 1) * cycleDuration) repetitions++;
+                                offsetAnim = Math.sin(t * 2 * Math.PI) * rel(0.16, 'h');
+                            }
+                        }
+                        topLineY = baseOffset + offsetAnim;
+                        bottomLineY = getGameSize().h - baseOffset + offsetAnim;
+
+                        // Relleno blanco opaco para TODO el rectángulo verde (canvas)
+                        ctx.save();
+                        ctx.fillStyle = "#fff";
+                        ctx.globalAlpha = 1;
+                        ctx.fillRect(0, 0, getGameSize().w, getGameSize().h);
+                        ctx.restore();
+
+                        // Líneas rojo neón
+                        ctx.save();
+                        ctx.strokeStyle = '#ff1744'; // rojo neón
+                        ctx.lineWidth = rel(0.012, 'w');
+                        ctx.shadowColor = "#ff1744"; // neón
+                        ctx.shadowBlur = 16;
+                        ctx.beginPath();
+                        ctx.moveTo(rel(0.03, 'w'), topLineY);
+                        ctx.lineTo(getGameSize().w - rel(0.03, 'w'), topLineY);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(rel(0.03, 'w'), bottomLineY);
+                        ctx.lineTo(getGameSize().w - rel(0.03, 'w'), bottomLineY);
+                        ctx.stroke();
+                        ctx.shadowBlur = 0;
+                        ctx.restore();
+                    }
+
+                    function checkCollision() {
+                        const halfHeight = rel(0.035, 'w');
+                        if (birdY - halfHeight < topLineY || birdY + halfHeight > bottomLineY) {
+                            showEndScreen(false);
+                        }
+                    }
+
+                    function drawCountdown() {
+                        ctx.fillStyle = '#ffe44d'; // amarillo
+                        ctx.font = `bold ${rel(0.13, 'w')}px 'Montserrat', Arial, sans-serif`;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
                         ctx.shadowColor = "#178a2c";
                         ctx.shadowBlur = 8;
-                        ctx.fillText(player.score, w/2, h - rel(0.07, 'h'));
-                        ctx.fillText(ai.score, w/2, rel(0.11, 'h'));
+                        ctx.fillText(countdown, getGameSize().w / 2, getGameSize().h / 2);
                         ctx.shadowBlur = 0;
                     }
 
-                    function drawPaddle(p, isPlayer) {
-                        const ctx = canvas.getContext('2d');
-                        ctx.save();
-                        if (isPlayer) {
-                            ctx.fillStyle = "#ffe44d";
-                            ctx.shadowColor = "#178a2c";
-                            ctx.shadowBlur = 8;
-                            ctx.fillRect(p.x, p.y, p.w, p.h);
-                        } else {
-                            // Cambia a gris si la IA está paralizada
-                            ctx.fillStyle = aiFrozen ? "#b0b0b0" : "#fff";
-                            ctx.shadowColor = "#2b4fa2";
-                            ctx.shadowBlur = 4;
-                            ctx.fillRect(p.x, p.y, p.w, p.h);
-                        }
-                        ctx.restore();
-                    }
-
-                    function drawAITimer() {
-                        const { w } = getGameSize();
-                        ctx.save();
-                        ctx.font = `bold ${rel(0.06, 'w')}px 'Montserrat', Arial, sans-serif`;
-                        ctx.textAlign = "center";
-                        ctx.textBaseline = "top";
-                        // Cambia a gris si la IA está paralizada
-                        let color = aiFrozen ? "#b0b0b0" : "#fff";
-                        let timerValue = aiFrozen ? aiFreezeTimer : aiTimer;
-                        let timerText = timerValue.toFixed(1);
-                        const timerX = ai.x + ai.w/2;
-                        const timerY = ai.y + ai.h + rel(0.012, 'h');
-                        ctx.fillStyle = color;
+                    function drawGameTimer() {
+                        if (!gameStarted) return;
+                        ctx.textAlign = 'center';
+                        const timerText = inFinalMilliseconds ? (finalMilliseconds / 1000).toFixed(1) + 's' : gameTimer + 's';
+                        ctx.fillStyle = '#178a2c'; // verde igual al de los títulos
+                        ctx.font = `bold ${rel(0.07, 'w')}px 'Montserrat', Arial, sans-serif`;
                         ctx.shadowColor = "#178a2c";
                         ctx.shadowBlur = 8;
-                        ctx.fillText(timerText, timerX, timerY);
-                        ctx.restore();
-                    }
-
-                    function drawBall() {
-                        ctx.save();
-                        ctx.fillStyle = "#fff";
-                        ctx.shadowColor = "#ffe44d";
-                        ctx.shadowBlur = 8;
-                        ctx.beginPath();
-                        ctx.arc(ball.x + ball.size/2, ball.y + ball.size/2, ball.size/2, 0, 2*Math.PI);
-                        ctx.fill();
-                        ctx.restore();
-                    }
-
-                    function draw() {
-                        const { w, h } = getGameSize();
-                        ctx.clearRect(0, 0, w, h);
-                        drawTable();
-                        drawScore();
-                        drawPaddle(player, true);
-                        drawPaddle(ai, false);
-                        drawBall();
-                        drawAITimer();
-                    }
-
-                    function clamp(val, min, max) {
-                        return Math.max(min, Math.min(max, val));
-                    }
-
-                    function handleMoveFromCanvas(x) {
-                        const { w } = getGameSize();
-                        player.x = clamp(x - player.w/2, rel(0.03, 'w'), w - rel(0.03, 'w') - player.w);
-                    }
-                    function getCanvasRelativeX(e) {
-                        const rect = canvas.getBoundingClientRect();
-                        if (e.touches && e.touches.length > 0) {
-                            return (e.touches[0].clientX - rect.left) * (canvas.width / rect.width);
-                        } else if (typeof e.clientX === "number") {
-                            return (e.clientX - rect.left) * (canvas.width / rect.width);
-                        }
-                        return 0;
-                    }
-                    canvas.addEventListener('touchstart', function(e) {
-                        handleMoveFromCanvas(getCanvasRelativeX(e));
-                        e.preventDefault();
-                    });
-                    canvas.addEventListener('touchmove', function(e) {
-                        handleMoveFromCanvas(getCanvasRelativeX(e));
-                        e.preventDefault();
-                    });
-                    canvas.addEventListener('mousedown', function(e) {
-                        handleMoveFromCanvas(getCanvasRelativeX(e));
-                        touchX = true;
-                    });
-                    canvas.addEventListener('mousemove', function(e) {
-                        if (touchX) {
-                            handleMoveFromCanvas(getCanvasRelativeX(e));
-                        }
-                    });
-                    canvas.addEventListener('mouseup', function() {
-                        touchX = null;
-                    });
-                    canvas.addEventListener('mouseleave', function() {
-                        touchX = null;
-                    });
-
-                    function aiMove() {
-                        if (aiFrozen) return;
-                        const { w } = getGameSize();
-                        let center = ai.x + ai.w/2;
-                        let target = ball.x + ball.size/2;
-                        let dx = target - center;
-                        ai.x += dx;
-                        ai.x = clamp(ai.x, rel(0.03, 'w'), w - rel(0.03, 'w') - ai.w);
-                    }
-
-                    function updateAITimer(dt) {
-                        if (!aiFrozen) {
-                            aiTimer -= dt;
-                            if (aiTimer <= 0) {
-                                aiFrozen = true;
-                                aiFreezeTimer = 3.0;
-                                aiTimer = 0;
-                            }
-                        } else {
-                            aiFreezeTimer -= dt;
-                            if (aiFreezeTimer <= 0) {
-                                aiFrozen = false;
-                                aiTimer = 15.0;
-                                aiFreezeTimer = 0;
-                            }
-                        }
+                        ctx.fillText(timerText, getGameSize().w / 2, rel(0.07, 'h'));
+                        ctx.shadowBlur = 0;
+                        activeBonuses = activeBonuses.filter(b => performance.now() - b.start < 1500);
+                        activeBonuses.forEach((b, index) => {
+                            const alpha = 1 - (performance.now() - b.start) / 1500;
+                            ctx.globalAlpha = alpha;
+                            ctx.fillStyle = '#e53935'; // "+5" en rojo
+                            ctx.font = `bold ${rel(0.045, 'w')}px 'Montserrat', Arial, sans-serif`;
+                            const offsetX = rel(0.13, 'w') + index * rel(0.13, 'w') + 3;
+                            ctx.fillText('+5', getGameSize().w / 2 + offsetX, rel(0.07, 'h'));
+                            ctx.globalAlpha = 1;
+                        });
                     }
 
                     function update() {
-                        const { w, h } = getGameSize();
-                        let now = Date.now();
-                        let dt = (now - aiTimerLastUpdate) / 1000;
-                        aiTimerLastUpdate = now;
-                        if (running) updateAITimer(dt);
-
-                        ball.x += ball.vx;
-                        ball.y += ball.vy;
-
-                        if (ball.x < 0) {
-                            ball.x = 0; ball.vx *= -1;
+                        if (gameOver) return;
+                        ctx.clearRect(0, 0, getGameSize().w, getGameSize().h);
+                        if (!gameStarted) {
+                            updateTargetOffset();
+                            drawBoundaries();
+                            drawBird();
+                            drawCountdown();
+                            time++;
+                            requestAnimationFrame(update);
+                            return;
                         }
-                        if (ball.x + ball.size > w) {
-                            ball.x = w - ball.size; ball.vx *= -1;
+                        velocity += gravity * rel(1, 'h') / 480;
+                        birdY += velocity;
+                        if (birdY > getGameSize().h) birdY = getGameSize().h;
+                        if (birdY < 0) {
+                            birdY = 0;
+                            velocity = 0;
                         }
-
-                        if (
-                            ball.y + ball.size >= player.y &&
-                            ball.y + ball.size <= player.y + player.h + rel(0.01, 'h') &&
-                            ball.x + ball.size > player.x &&
-                            ball.x < player.x + player.w &&
-                            ball.vy > 0
-                        ) {
-                            ball.y = player.y - ball.size;
-                            ball.vy *= -1;
-                            let hit = ((ball.x + ball.size/2) - (player.x + player.w/2)) / (player.w/2);
-                            ball.vx += hit * rel(0.006, 'w');
-                            let baseSpeed = rel(0.018, 'h');
-                            let speed = Math.sqrt(ball.vx*ball.vx + ball.vy*ball.vy);
-                            if (speed !== 0) {
-                                ball.vx *= baseSpeed/speed;
-                                ball.vy *= baseSpeed/speed;
-                            }
-                        }
-                        if (
-                            ball.y <= ai.y + ai.h &&
-                            ball.y >= ai.y - rel(0.01, 'h') &&
-                            ball.x + ball.size > ai.x &&
-                            ball.x < ai.x + ai.w &&
-                            ball.vy < 0
-                        ) {
-                            ball.y = ai.y + ai.h;
-                            ball.vy *= -1;
-                            let hit = ((ball.x + ball.size/2) - (ai.x + ai.w/2)) / (ai.w/2);
-                            ball.vx += hit * rel(0.006, 'w');
-                            let baseSpeed = rel(0.018, 'h');
-                            let speed = Math.sqrt(ball.vx*ball.vx + ball.vy*ball.vy);
-                            if (speed !== 0) {
-                                ball.vx *= baseSpeed/speed;
-                                ball.vy *= baseSpeed/speed;
-                            }
-                        }
-
-                        if (ball.y < 0) {
-                            player.score++;
-                            if (player.score >= 5) {
-                                running = false;
-                                setTimeout(() => showEndScreen(true), 700);
-                            } else {
-                                resetPositions(false);
-                            }
-                        }
-                        if (ball.y + ball.size > getGameSize().h) {
-                            ai.score++;
-                            if (ai.score >= 5) {
-                                running = false;
-                                setTimeout(() => showEndScreen(false), 700);
-                            } else {
-                                resetPositions(true);
-                            }
-                        }
+                        updateTargetOffset();
+                        drawBoundaries();
+                        drawBird();
+                        drawGameTimer();
+                        checkCollision();
+                        time++;
+                        requestAnimationFrame(update);
                     }
 
-                    function gameLoop() {
-                        draw();
-                        if (running) {
-                            aiMove();
-                            update();
-                        }
-                        requestAnimationFrame(gameLoop);
+                    function flap() {
+                        if (!gameStarted || gameOver) return;
+                        velocity = -5.4 * rel(1, 'h') / 480;
+                    }
+
+                    function startGameTimer() {
+                        let bonusGiven = 0;
+                        gameTimerInterval = setInterval(() => {
+                            if (inFinalMilliseconds) {
+                                finalMilliseconds -= 100;
+                                if (finalMilliseconds <= 0) {
+                                    clearInterval(gameTimerInterval);
+                                    showEndScreen(true);
+                                }
+                                return;
+                            }
+                            gameTimer--;
+                            if (gameTimer === 5 && bonusGiven < 3) {
+                                gameTimer += 5;
+                                bonusGiven++;
+                                activeBonuses.push({ start: performance.now() });
+                            }
+                            if (gameTimer === 1 && bonusGiven >= 3) inFinalMilliseconds = true;
+                            if (gameTimer <= 0) {
+                                clearInterval(gameTimerInterval);
+                                showEndScreen(true);
+                            }
+                        }, 1000);
                     }
 
                     function showEndScreen(playerWon) {
-                        const pongContainer = document.getElementById('pong-container');
-                        let html = '';
+                        gameOver = true;
+                        overlay.style.display = 'flex';
                         if (playerWon) {
-                            // Espacio de diálogo igual a los otros, con fondo, imagen, título, texto y botón
-                            html = `
-                                <div class="arbol-chan-container" id="pong-end" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:10;background:url('Fondo texto.jpg') no-repeat center center;background-size:cover;display:flex;flex-direction:column;justify-content:center;align-items:center;">
-                                    <div class="arbol-chan-content" style="background:none;box-shadow:none;">
-                                        <img src="gymbro.png" class="arbol-chan-img" alt="Gym Bro" style="opacity:1;transform:none;margin-bottom:0.7rem;" />
-                                        <div class="arbol-chan-titulo" style="color:#178a2c;margin-bottom:0.7rem;">Gym Bro</div>
-                                        <div class="arbol-chan-texto" style="color:#fff;">
-                                            “¡¡Excelso desempeño, noble usuario!<br>
-                                            Ha demostrado valor y precisión.”<br><br>
-                                            “Como fue pactado, le concedere la pista que es una imagen tomada en este parque.”<br><br>
-                                            “Encuentre el lugar, observe con atención… y halle el código.”<br>
-                                            Y recuerde: no se rinda, en esta búsqueda ni en su travesía.”
-                                        </div>
-                                        <button id="pong-show-clue" class="btn-continuar" style="margin-top:1.2rem;">Ver pista</button>
+                            overlay.innerHTML = `
+                                <div class="arbol-chan-content" style="background:none;box-shadow:none;">
+                                    <img src="gymbro.png" class="arbol-chan-img" alt="Gym Bro" style="opacity:1;transform:none;margin-bottom:0.7rem;" />
+                                    <div class="arbol-chan-titulo" style="color:#178a2c;margin-bottom:0.7rem;">Gym Bro</div>
+                                    <div class="arbol-chan-texto" style="color:#fff;">
+                                        “Bro... mis respetos. Hiciste todo eso sin ni un scoop de pre-entreno.<br>
+                                        Eres, sin duda, un real Bro™.”
                                     </div>
+                                    <button id="flappy-show-clue" class="btn-continuar" style="margin-top:1.2rem;">Ver pista</button>
                                 </div>
                             `;
-                            pongContainer.insertAdjacentHTML('beforeend', html);
-                            document.getElementById('pong-show-clue').onclick = function() {
-                                // Reemplaza el diálogo por la pista
-                                document.getElementById('pong-end').innerHTML = `
+                            document.getElementById('flappy-show-clue').onclick = function() {
+                                overlay.innerHTML = `
                                     <h2 style="margin-top:0;">Siguiente pista</h2>
                                     <div id="pong-next-img" style="margin:0; padding:0;">
                                         <img src="silla1.jpeg" alt="Pista" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:12px 12px 12px 12px;">
                                     </div>
-                                    <button id="pong-continue" style="font-size:1.3rem;background:#178a2c;color:#fff;border:2px solid #fff;border-radius:8px;padding:0.7rem 2.5rem;font-weight:bold;font-family:'Montserrat',Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,0.12);cursor:pointer;margin-top:1.5rem;margin-bottom:2rem;">Continuar</button>
+                                    <button id="flappy-continue" style="font-size:1.3rem;background:#178a2c;color:#fff;border:2px solid #fff;border-radius:8px;padding:0.7rem 2.5rem;font-weight:bold;font-family:'Montserrat',Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,0.12);cursor:pointer;margin-top:1.5rem;margin-bottom:2rem;">Continuar</button>
                                 `;
-                                document.getElementById('pong-continue').onclick = function() {
+                                document.getElementById('flappy-continue').onclick = function() {
                                     window.location.href = "https://danjua77.github.io/Sagrado.Puzzle/";
                                 };
                             };
                         } else {
-                            html = `
-                                <div id="pong-end">
-                                    <img src="gymbro.png" class="arbol-img" alt="Gym Bro" />
-                                    <h2>Qué desafortunado....</h2>
-                                    <button id="pong-retry">Continuar</button>
-                                </div>
+                            overlay.innerHTML = `
+                                <img src="gymbro.png" class="arbol-img" alt="Gym Bro" />
+                                <h2>Bro....</h2>
+                                <button id="flappy-retry">Continuar</button>
                             `;
-                            pongContainer.insertAdjacentHTML('beforeend', html);
-                            document.getElementById('pong-retry').onclick = function() {
-                                location.reload();
+                            document.getElementById('flappy-retry').onclick = function() {
+                                resetGame();
                             };
                         }
                     }
 
-                    function updateSizes() {
-                        resetPositions();
-                    }
-                    window.addEventListener('resize', function() {
-                        updateSizes();
-                    });
-
-                    player.score = 0; ai.score = 0;
-                    aiTimer = 15.0;
-                    aiFrozen = false;
-                    aiFreezeTimer = 0;
-                    resetPositions(false);
-
-                    // --- Contador de 3 a 1 ---
-                    let countdown = 3;
-                    const updateCountdown = () => {
-                        const numElem = document.getElementById('pong-countdown-num');
-                        if (numElem) numElem.textContent = countdown > 0 ? countdown : "";
-                    };
-                    updateCountdown();
-
-                    // Inicia la música apenas inicia el contador
-                    const audio = document.getElementById('pong-audio');
-                    if (audio) {
-                        audio.currentTime = 0;
-                        audio.play().catch(()=>{});
-                    }
-
-                    const countdownInterval = setInterval(() => {
-                        countdown--;
-                        updateCountdown();
-                        if (countdown === 0) {
-                            clearInterval(countdownInterval);
-                            // Oculta el contador y arranca el juego
-                            const countdownDiv = document.getElementById('pong-countdown');
-                            if (countdownDiv) countdownDiv.style.display = 'none';
-                            running = true;
+                    function startCountdown() {
+                        countdownNum.textContent = countdown > 0 ? countdown : "";
+                        countdownDiv.style.display = 'flex';
+                        if (audio) {
+                            audio.currentTime = 0;
+                            audio.play().catch(()=>{});
                         }
-                    }, 1000);
+                        const countdownInterval = setInterval(() => {
+                            countdown--;
+                            countdownNum.textContent = countdown > 0 ? countdown : "";
+                            if (countdown === 0) {
+                                clearInterval(countdownInterval);
+                                countdownDiv.style.display = 'none';
+                                gameStarted = true;
+                                startGameTimer();
+                            }
+                        }, 1000);
+                    }
 
-                    gameLoop();
+                    document.body.addEventListener('touchstart', flap);
+                    document.body.addEventListener('mousedown', flap);
+
+                    resetGame();
                 }, 10);
             }
         });
