@@ -290,7 +290,7 @@
         #flappy-countdown-num {
             font-family: 'Montserrat', Arial, sans-serif;
             font-size: 4rem;
-            color: #fff;
+            color: #ffe44d; /* Cambiado de blanco a amarillo */
             text-shadow: 0 2px 16px #178a2c,0 0 12px #fff;
         }
         #ost-text {
@@ -306,8 +306,8 @@
             <img src="gymbro.png" class="arbol-chan-img" id="arbol-chan-img" alt="Árbol-chan" />
             <div class="arbol-chan-titulo" id="arbol-chan-titulo">Gym Bro</div>
             <div class="arbol-chan-texto" id="arbol-chan-texto">
-                “Bro... ¿de verdad crees que puedes tener la pista así de fácil?<br>
-                Ni tu sombra tiene masa muscular.”
+                “Bro… ¿De verdad crees que puedes tener la pista así de fácil?<br>
+                He visto bebes con más masa muscular.”
             </div>
             <button class="btn-continuar" id="btn-continuar">Continuar</button>
         </div>
@@ -452,7 +452,7 @@
                         #flappy-countdown-num {
                             font-family: 'Montserrat', Arial, sans-serif;
                             font-size: 4rem;
-                            color: #fff;
+                            color: #ffe44d; /* Cambiado de blanco a amarillo */
                             text-shadow: 0 2px 16px #178a2c,0 0 12px #fff;
                         }
                         #ost-text {
@@ -553,8 +553,8 @@
                         const img = drawBird.pesasImg || (drawBird.pesasImg = new Image());
                         if (!img.src) img.src = "pesas1.png";
                         // Haz las pesas aún más grandes
-                        const w = rel(0.38, 'w');
-                        const h = rel(0.19, 'h');
+                        const w = rel(0.48, 'w'); // antes 0.38
+                        const h = rel(0.24, 'h'); // antes 0.19
                         ctx.save();
                         ctx.globalAlpha = 1;
                         ctx.drawImage(img, birdX() - w / 2, birdY - h / 2, w, h);
