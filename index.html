@@ -782,6 +782,7 @@
                                 };
                             };
                         } else {
+                            clearInterval(gameTimerInterval); // Detener el contador al perder
                             overlay.innerHTML = `
                                 <img src="parrishgym.png" class="arbol-img" alt="Gym Bro" />
                                 <h2>Bro....</h2>
