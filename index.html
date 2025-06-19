@@ -297,6 +297,28 @@
             position:fixed;bottom:18px;left:0;width:100vw;text-align:center;z-index:20;
             font-family:'Montserrat',Arial,sans-serif;font-size:1.05rem;color:#fff;text-shadow:0 2px 8px #000;
         }
+        #flappy-top-img-container {
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+            height: 10vh;
+        }
+        #flappy-top-img {
+            width: 14vw;
+            max-width: 44px;
+            min-width: 24px;
+            margin-top: 0.7vh;
+            margin-bottom: 0.2vh;
+            filter: drop-shadow(0 4px 16px #fff);
+            opacity: 1;
+            transition: opacity 1s;
+        }
     </style>
 </head>
 <body>
@@ -459,7 +481,32 @@
                             position:fixed;bottom:18px;left:0;width:100vw;text-align:center;z-index:20;
                             font-family:'Montserrat',Arial,sans-serif;font-size:1.05rem;color:#fff;text-shadow:0 2px 8px #000;
                         }
+                        #flappy-top-img-container {
+                            width: 100vw;
+                            display: flex;
+                            justify-content: center;
+                            align-items: flex-end;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            z-index: 2;
+                            pointer-events: none;
+                            height: 10vh;
+                        }
+                        #flappy-top-img {
+                            width: 14vw;
+                            max-width: 44px;
+                            min-width: 24px;
+                            margin-top: 0.7vh;
+                            margin-bottom: 0.2vh;
+                            filter: drop-shadow(0 4px 16px #fff);
+                            opacity: 1;
+                            transition: opacity 1s;
+                        }
                     </style>
+                    <div id="flappy-top-img-container">
+                        <img src="gymbro.png" id="flappy-top-img" alt="Gym Bro" />
+                    </div>
                     <div id="flappy-container">
                         <canvas id="flappy-canvas"></canvas>
                         <div id="flappy-countdown">
