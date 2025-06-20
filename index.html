@@ -757,6 +757,10 @@
                     function showEndScreen(playerWon) {
                         gameOver = true;
                         overlay.style.display = 'flex';
+                        if (audio) {
+                            audio.pause();
+                            audio.currentTime = 0;
+                        }
                         if (playerWon) {
                             overlay.innerHTML = `
                                 <div class="arbol-chan-content" style="background:none;box-shadow:none;">
