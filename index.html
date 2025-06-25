@@ -762,6 +762,9 @@
                             audio.currentTime = 0;
                         }
                         if (playerWon) {
+                            // Reproducir ok.mp3 al ganar
+                            const okAudio = new Audio('ok.mp3');
+                            okAudio.play().catch(()=>{});
                             overlay.innerHTML = `
                                 <div class="arbol-chan-content" style="background:none;box-shadow:none;">
                                     <img src="gymbro.png" class="arbol-chan-img" alt="Gym Bro" style="opacity:1;transform:none;margin-bottom:0.7rem;" />
