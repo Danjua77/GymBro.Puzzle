@@ -325,13 +325,13 @@
     <div class="arbol-chan-container" id="arbol-chan-container">
         <div class="arbol-chan-content">
 
-            <img src="gymbro.png" class="arbol-chan-img" id="arbol-chan-img" alt="Gym Bro" />
+            <img src="gymbro.png" class="arbol-chan-img" id="arbol-chan-img" alt="Árbol-chan" />
             <div class="arbol-chan-titulo" id="arbol-chan-titulo">Gym Bro</div>
             <div class="arbol-chan-texto" id="arbol-chan-texto">
-                Bro... Do you really think you can get the clue that easily?<br>
-                I've seen iguanas with more muscle mass than you.
+                Bro… ¿De verdad crees que puedes tener la pista así de fácil?<br>
+                He visto iguanas con más masa muscular que tú.
             </div>
-            <button class="btn-continuar" id="btn-continuar">Continue</button>
+            <button class="btn-continuar" id="btn-continuar">Continuar</button>
         </div>
     </div>
     <script>
@@ -365,7 +365,7 @@
         const btnContinuar = document.getElementById('btn-continuar');
         btnContinuar.addEventListener('click', function() {
             if (arbolChanDialogStep === 0) {
-                arbolChanTexto.innerHTML = "Prove you're a real Bro™. Hold these weights without breaking a sweat for as long as necessary.";
+                arbolChanTexto.innerHTML = "Demuestra que eres un real Bro™. aguanta estas pesas sin derramar una sola gota de sudor el tiempo que sea necesario.";
                 arbolChanDialogStep = 1;
             } else {
                 // Reemplaza el juego Pong por Flappy Touch con estética visual del Pong
@@ -762,7 +762,7 @@
                             audio.currentTime = 0;
                         }
                         if (playerWon) {
-                            // Reproducir ok.mp3 al ganar (apenas gana)
+                            // Reproducir ok.mp3 al ganar
                             const okAudio = new Audio('ok.mp3');
                             okAudio.play().catch(()=>{});
                             overlay.innerHTML = `
@@ -770,19 +770,19 @@
                                     <img src="gymbro.png" class="arbol-chan-img" alt="Gym Bro" style="opacity:1;transform:none;margin-bottom:0.7rem;" />
                                     <div class="arbol-chan-titulo" style="color:#178a2c;margin-bottom:0.7rem;">Gym Bro</div>
                                     <div class="arbol-chan-texto" style="color:#fff;">
-                                        Bro... my respects. You did all that without a single gram of pre-workout.<br>
-                                        You are, without a doubt, a real Bro™.
+                                        Bro... mis respetos. Hiciste todo eso sin un gramo de pre-entreno.<br>
+                                        Eres, sin duda, un real Bro™.
                                     </div>
-                                    <button id="flappy-show-clue" class="btn-continuar" style="margin-top:1.2rem;">See clue</button>
+                                    <button id="flappy-show-clue" class="btn-continuar" style="margin-top:1.2rem;">Ver pista</button>
                                 </div>
                             `;
                             document.getElementById('flappy-show-clue').onclick = function() {
                                 overlay.innerHTML = `
-                                    <h2 style="margin-top:0;">Next clue</h2>
+                                    <h2 style="margin-top:0;">Siguiente pista</h2>
                                     <div id="pong-next-img" style="margin:0; padding:0;">
-                                        <img src="silla1.jpeg" alt="Clue" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:12px 12px 12px 12px;">
+                                        <img src="silla1.jpeg" alt="Pista" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:12px 12px 12px 12px;">
                                     </div>
-                                    <button id="flappy-continue" style="font-size:1.3rem;background:#178a2c;color:#fff;border:2px solid #fff;border-radius:8px;padding:0.7rem 2.5rem;font-weight:bold;font-family:'Montserrat',Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,0.12);cursor:pointer;margin-top:1.5rem;margin-bottom:2rem;">Continue</button>
+                                    <button id="flappy-continue" style="font-size:1.3rem;background:#178a2c;color:#fff;border:2px solid #fff;border-radius:8px;padding:0.7rem 2.5rem;font-weight:bold;font-family:'Montserrat',Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,0.12);cursor:pointer;margin-top:1.5rem;margin-bottom:2rem;">Continuar</button>
                                 `;
                                 document.getElementById('flappy-continue').onclick = function() {
                                     window.location.href = "https://danjua77.github.io/Sagrado.Puzzle/";
@@ -793,7 +793,7 @@
                             overlay.innerHTML = `
                                 <img src="parrishgym.png" class="arbol-img" alt="Gym Bro" />
                                 <h2>Bro....</h2>
-                                <button id="flappy-retry">Continue</button>
+                                <button id="flappy-retry">Continuar</button>
                             `;
                             document.getElementById('flappy-retry').onclick = function() {
                                 resetGame();
